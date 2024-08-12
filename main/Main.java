@@ -8,6 +8,10 @@ public class Main {
 
         frame.setTitle("Simple Calculator");
         frame.setSize(700,700);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
     }
 }
+
