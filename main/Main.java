@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Main {
-    public static JLabel inputs;
-    public static JTextField Answer;
-    public static JButton percent,ce,c,backspace,onedivx,squared,root,divide,times,subtraction,plus,equals,cSign,decimal;
+    private static JLabel inputs;
+    private static JTextField Answer;
+    private static JButton percent,ce,c,backspace,onedivx,squared,root,divide,times,subtraction,plus,equals,cSign,decimal;
     public static GridBagConstraints gbc;
+    public static String display_current, display_history;
+    public static float current_number,inputed_nubmer;
     public static void main(String[] args){
         //Window 
         JFrame frame = new JFrame();
@@ -29,24 +31,28 @@ public class Main {
         mainPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(1,1,1,1);
-        
+
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;        
 
         //Dimension: 8x4
 
         //Contents 
         inputs = new JLabel("test");
+        inputs.setBackground(Color.BLACK);
         inputs.setHorizontalAlignment(SwingConstants.RIGHT);
         inputs.setForeground(Color.GRAY);
         gbc_set(0,0,4);
         mainPanel.add(inputs,gbc);
 
-        Answer = new JTextField("test");
+        Answer = new JTextField("0",4);    
+        Answer.setPreferredSize(new Dimension(500,500));
         Answer.setHorizontalAlignment(SwingConstants.RIGHT);
         gbc_set(0, 1, 4);
         mainPanel.add(Answer,gbc);
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        //Buttons
         percent = new JButton("%");
         ce = new JButton("CE");
         c = new JButton("C");
@@ -108,6 +114,7 @@ public class Main {
         gbc.gridy = y;
         gbc.gridwidth = width;
     }
+
     static public void addButton(JPanel panel,JButton button ,int x,int y){
         gbc_set(x, y, 1);
         panel.add(button,gbc);
@@ -115,7 +122,9 @@ public class Main {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button " + button.getText() + " clicked.");
+                if(e.getSource() == percent){
+                    function.percent(current_number,inputed_nubmer);
+                }
             }
         });
     } 
